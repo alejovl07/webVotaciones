@@ -1,13 +1,13 @@
   import express from 'express';
   import dotenv from 'dotenv';
   import cors from 'cors';    
-  import userRoutes from './routes/user.route.js';
-  import votesRoutes from './routes/votes.routes.js';
-  import electionsRoutes from './routes/elections.routes.js';
-  import candidateRoutes from './routes/candidate.routes.js';
+  import userRoutes from './src/routes/user.route.js';
+  import votesRoutes from './src/routes/votes.routes.js';
+  import electionsRoutes from './src/routes/elections.routes.js';
+  import candidateRoutes from './src/routes/candidate.routes.js';
   import path from 'path';
   import { fileURLToPath } from 'url';
-  import pool from './config/db.js';
+  import pool from './src/config/db.js';
 
   dotenv.config();
 
