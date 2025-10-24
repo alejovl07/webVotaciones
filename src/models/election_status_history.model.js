@@ -1,6 +1,6 @@
 import db from '../config/db.js';
 
-export const Election_Status = {
+export const Election_Status_History = {
     
   getAll: async () => {
     const [rows] = await db.query('SELECT * FROM election_status_history');
