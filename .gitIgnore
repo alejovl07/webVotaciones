@@ -9,3 +9,10 @@ yarn-error.log*
 package-lock.json
 .DS_Store
 .vscode/" > .gitignore
+
+# JetBrains/WebStorm
+.idea/
+
+node_modules/
+dist/
+build/
