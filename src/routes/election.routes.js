@@ -5,7 +5,7 @@ import {
   createElection,
   updateElection,
   deleteElection
-} from '../controllers/elections.controller.js';
+} from '../controllers/election.controller.js';
 
 const router = express.Router();
 

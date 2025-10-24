@@ -5,7 +5,7 @@ import {
   createVote,
   updateVote,
   deleteVote
-} from '../controllers/votes.controller.js';
+} from '../controllers/vote.controller.js';
 
 const router = express.Router();
 
