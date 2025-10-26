@@ -29,7 +29,7 @@ export class RoleRepository {
             const [result] = await this.database.query('INSERT INTO role (name) VALUES (?)', [name]);
             return new Role({id: result.insertId, name});
         } catch (e) {
-            throw new Error(`The user could not be created: ${e.message}`);
+            throw new Error(`Rol could not be created: ${e.message}`);
         }
 
     }
@@ -47,7 +47,7 @@ export class RoleRepository {
 
     }
 
-    async updateRole(id, name) {
+    async updateRoleById(id, {name}) {
         try {
             const [result] = await this.database.query('UPDATE role SET name = ? WHERE id = ?', [name, id]);
             if (result.affectedRows === 0) throw new Error('Role no found')

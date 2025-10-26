@@ -71,6 +71,13 @@ CREATE TABLE general_votes (
     FOREIGN KEY (election_id) REFERENCES election(id),
     FOREIGN KEY (candidate_id) REFERENCES users(id)
 );
+
+INSERT INTO role (name)
+VALUES
+('voter'),
+('candidate'),
+('admin');
+
 ```
 - ### Run project
 

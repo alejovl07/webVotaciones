@@ -5,7 +5,7 @@ export class RoleService{
 
     async createRole(roleModel){
         const roleExists = await  this.roleRepository.getRoleById(roleModel.id);
-        if (roleExists) throw new Error(`Role ${roleModel.id} already exists`);
+        if (roleExists) throw new Error(`Role ${roleExists.id} already exists`);
 
         const newRole = await this.roleRepository.createRole(roleModel);
         return newRole;
