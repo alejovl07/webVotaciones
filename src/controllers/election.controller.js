@@ -1,26 +1,53 @@
-import { Election } from '../models/election.model.js';
+export class ElectionController {
+    constructor(electionService) {
+        this.electionService = electionService;
+    }
 
-export const getAllElections = async (req, res) => {
-  const election = await Election.getAll();
-  res.json(election);
-};
+    createElection = async (req, res) => {
+        try {
+            const election = await this.electionService.createElection(req.body);
+            res.status(201).json(election);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
 
-export const getElectionById = async (req, res) => {
-  const election = await Election.getById(req.params.id);
-  election ? res.json(election) : res.status(404).json({ message: 'Elección no encontrada' });
-};
+    deleteElection = async (req, res) => {
+        try {
+            const {id} = req.params;
+            const deletedElection = await this.electionService.deleteElection(id);
+            res.status(200).json(deletedElection);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
 
-export const createElection = async (req, res) => {
-  const newElection = await Election.create(req.body);
-  res.status(201).json(newElection);
-};
+    updateElection = async (req, res) => {
+        try {
+            const {id} = req.params;
+            const updatedElection = await this.electionService.updateElection(id, req.body);
+            res.status(200).json(updatedElection);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
 
-export const updateElection = async (req, res) => {
-  const updatedElection = await Election.update(req.params.id, req.body);
-  res.json(updatedElection);
-};
+    getAllElections = async (req, res) => {
+        try {
+            const elections = await this.electionService.getAllElections();
+            res.status(200).json(elections);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
 
-export const deleteElection = async (req, res) => {
-  const result = await Election.delete(req.params.id);
-  res.json(result);
-};
+    getElectionById = async (req, res) => {
+        try {
+            const {id} = req.params;
+            const election = await this.electionService.getElectionById(id);
+            res.status(200).json(election);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
+}
