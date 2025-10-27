@@ -1,18 +1,21 @@
 import {Vote} from "../models/vote.model.js";
 
 export class VoteRepository {
-    constructor(database) {
+    constructor(database, generalVotesRepository) {
         this.database = database;
+        this.generalVotesRepository = generalVotesRepository;
     }
 
     async createVote({voter_id, candidate_id, election_id, date}) {
         try {
             const [newVote] = await this.database.query('INSERT INTO vote (voter_id, candidate_id, election_id, date) VALUES (?,?,?,?)', [voter_id, candidate_id, election_id, date]);
+            await this.generalVotesRepository.addGeneralVote(election_id, candidate_id);
             return new Vote({id: newVote.insertId, voter_id, candidate_id, election_id, date});
         } catch (e) {
             throw new Error(`Vote could not be created: ${e.message}`);
         }
     }
+
 
     async deleteVote(election_id, voter_id) {
         try {

@@ -1,26 +1,28 @@
-import { General_Votes } from '../models/general_votes.model.js';
+export class GeneralVotesController{
+  constructor(generalVotesService) {
+    this.generalVotesService = generalVotesService;
+  }
+  getVotesByElection =  async (req, res) => {
+    try {
+      const { election_id } = req.params;
+      const votes = await this.generalVotesService.getVotesByElection(election_id);
+      res.status(200).json(votes);
+    }catch (e) {
+      res.status(400).json({message: e.message});
+    }
+  }
 
-export const getAllGeneral_Votes = async (req, res) => {
-  const general_votes = await General_Votes.getAll();
-  res.json(general_votes);
-};
+  getVotesByCandidate =  async (req, res) => {
+    try {
+      const { election_id, candidate_id } = req.query;
+      const votes = await this.generalVotesService.getVotesByCandidate(election_id, candidate_id);
+      res.status(200).json(votes);
+    }catch (e) {
+      res.status(400).json({message: e.message});
+    }
+  }
 
-export const getGeneral_VotesById = async (req, res) => {
-  const general_votes = await General_Votes.getById(req.params.id);
-  general_votes ? res.json(general_votes) : res.status(404).json({ message: 'Votos generales no encontrado' });
-};
 
-export const createGeneral_Votes = async (req, res) => {
-  const general_votes = await General_Votes.create(req.body);
-  res.status(201).json(general_votes);
-};
 
-export const updateGeneral_votes = async (req, res) => {
-  const general_votes = await General_Votes.update(req.params.id, req.body);
-  res.json(general_votes);
-};
+}
 
-export const deleteGeneral_votes = async (req, res) => {
-  const result = await General_Votes.delete(req.params.id);
-  res.json(result);
-};

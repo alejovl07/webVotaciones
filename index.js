@@ -3,9 +3,8 @@
   import cors from 'cors';    
 
   import election_candidatesRoute from './src/routes/election_candidates.route.js';
-  import election_status_historyRoute from './src/routes/election_status_history.route.js';
   import electionRoute from './src/routes/election.route.js';
-  import general_votesRoute from './src/routes/users.route.js';
+  import general_votesRoute from './src/routes/general_votes.route.js';
   import roleRoute from './src/routes/role.route.js';
   import usersRoute from './src/routes/users.route.js';
   import voteRoute from './src/routes/vote.route.js';
@@ -26,7 +25,6 @@
 
   //app.use('/candidate', candidateRoutes);
   app.use('/election_candidates', election_candidatesRoute)
-  app.use('/election_status', election_status_historyRoute)
   app.use('/election', electionRoute);
   app.use('/general_votes', general_votesRoute);
   app.use('/role', roleRoute);

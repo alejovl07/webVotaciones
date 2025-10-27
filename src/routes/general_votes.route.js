@@ -1,18 +1,20 @@
 import express from 'express';
-import {
-  getAllGeneral_Votes,
-  getGeneral_VotesById,
-  createGeneral_Votes,
-  updateGeneral_votes,
-  deleteGeneral_votes
-} from '../controllers/general_votes.controller.js';
+
+import pool from '../config/db.js';
+import {GeneralVotesRepository} from '../repositories/general_votes.repository.js'
+import {GeneralVotesService} from "../services/general_votes.service.js";
+import {GeneralVotesController} from "../controllers/general_votes.controller.js";
+
+
+const generalVotesRepository = new GeneralVotesRepository(pool);
+const generalVotesService = new GeneralVotesService(generalVotesRepository);
+const generalVotesController = new GeneralVotesController(generalVotesService);
 
 const router = express.Router();
 
-router.get('/', getAllGeneral_Votes);
-router.get('/:id', getGeneral_VotesById);
-router.post('/', createGeneral_Votes);
-router.put('/:id', updateGeneral_votes);
-router.delete('/:id', deleteGeneral_votes);
+
+router.get('/:id', generalVotesController.getVotesByElection);
+router.get('/', generalVotesController.getVotesByCandidate);
+
 
 export default router;
