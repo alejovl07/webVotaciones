@@ -33,7 +33,7 @@ export class UsersRepository {
     async createUser({email, password, id_card, role_id}) {
         try {
             const [newUser] = await this.database.query('INSERT INTO users (email, password, id_card, role_id) VALUES (?, ?, ?, ?)', [email, password, id_card, role_id]);
-            return new User({id: newUser.insertId, email, id_card, role_id}); // no retornar password.
+            return new User({id: newUser.insertId, email, id_card, role_id}); // no retorna la password.
         } catch (e) {
             throw new Error(`User could not be created: ${e.message}`);
         }

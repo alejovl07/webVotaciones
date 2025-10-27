@@ -44,13 +44,6 @@ CREATE TABLE election_candidates (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE election_status_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    election_id INT NOT NULL,
-    status_name VARCHAR(50) NOT NULL,
-    FOREIGN KEY (election_id) REFERENCES election(id)
-);
-
 CREATE TABLE vote (
     id INT AUTO_INCREMENT PRIMARY KEY,
     voter_id INT NOT NULL,
@@ -79,6 +72,15 @@ VALUES
 ('admin');
 
 ```
+
+### Speficications
+
+Election table only has 3 status by default:
+   - active: 1
+   - closed: 2
+   - pending: 3 
+
+
 - ### Run project
 
 Execute the following command to install all dependencies:

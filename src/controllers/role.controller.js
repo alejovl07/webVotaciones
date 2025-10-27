@@ -1,5 +1,3 @@
-import * as wasi from "node:wasi";
-
 export class RoleController {
     constructor(roleService) {
         this.roleService = roleService;
@@ -25,7 +23,7 @@ export class RoleController {
 
     getRoleById = async (req, res) => {
         try {
-            const { id } = req.params;
+            const {id} = req.params;
             const role = await this.roleService.getRoleById(id);
             res.status(200).json(role);
         } catch (e) {
