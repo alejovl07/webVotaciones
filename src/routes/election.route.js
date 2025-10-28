@@ -1,18 +1,19 @@
 import express from 'express';
-import {
-  getAllElections,
-  getElectionById,
-  createElection,
-  updateElection,
-  deleteElection
-} from '../controllers/election.controller.js';
+import pool from '../config/db.js';
+import { ElectionRepository } from '../repositories/election.repository.js';
+import { ElectionService } from '../services/election.service.js';
+import { ElectionController } from '../controllers/election.controller.js';
 
 const router = express.Router();
 
-router.get('/', getAllElections);
-router.get('/:id', getElectionById);
-router.post('/', createElection);
-router.put('/:id', updateElection);
-router.delete('/:id', deleteElection);
+const electionRepository = new ElectionRepository(pool);
+const electionService = new ElectionService(electionRepository);
+const electionController = new ElectionController(electionService);
+
+router.get('/', electionController.getAllElections);
+router.get('/:id', electionController.getElectionById);
+router.post('/', electionController.createElection);
+router.put('/:id', electionController.updateElection);
+router.delete('/:id', electionController.deleteElection);
 
 export default router;

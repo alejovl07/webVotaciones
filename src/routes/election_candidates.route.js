@@ -1,18 +1,23 @@
 import express from 'express';
-import {
-  getAllElections_Candidates,
-  getElection_CandidatesById,
-  createElection_Candidate,
-  updateElection_Candidates,
-  deleteElection_Candidates
-} from '../controllers/election_candidates.controller.js';
+
+import pool from '../config/db.js';
+import {ElectionCandidatesRepository} from '../repositories/election_candidates.repository.js'
+import {UsersRepository} from '../repositories/users.repository.js'
+import {ElectionCandidatesService} from "../services/election_candidates.service.js";
+import {ElectionCandidatesController} from "../controllers/election_candidates.controller.js";
+
+
 
 const router = express.Router();
+const usersRepository = new UsersRepository(pool);
+const electionCandidatesRepository = new ElectionCandidatesRepository(pool);
+const electionCandidatesService = new ElectionCandidatesService(electionCandidatesRepository,usersRepository)
+const electionCandidatesController = new ElectionCandidatesController(electionCandidatesService)
 
-router.get('/', getAllElections_Candidates);
-router.get('/:id', getElection_CandidatesById);
-router.post('/', createElection_Candidate);
-router.put('/:id', updateElection_Candidates);
-router.delete('/:id', deleteElection_Candidates);
+
+
+router.post('/', electionCandidatesController.addCandidate);
+router.get('/:election_id', electionCandidatesController.getCandidatesByElection);
+
 
 export default router;
