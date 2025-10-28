@@ -61,6 +61,16 @@ export class UsersRepository {
         }
     }
 
+    async isCandidate(id){
+        try {
+            const rolName = 2 // ponerlo en el env
+            const [rows] = await this.database.query('SELECT * FROM users WHERE role_id = ? AND id = ?', [rolName, id])
+            return rows.length > 0;
+        }catch (e){
+            throw new Error(`Error validating user as candidate: ${e.message}`)
+        }
+    }
+
 
 }
 
