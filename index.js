@@ -8,8 +8,10 @@
   import roleRoute from './src/routes/role.route.js';
   import usersRoute from './src/routes/users.route.js';
   import voteRoute from './src/routes/vote.route.js';
-  
-  
+  import errorHandler from './src/middleware/error.js';
+  import logger from './src/middleware/logger.js';
+
+
   import path from 'path';
   import { fileURLToPath } from 'url';
   import pool from './src/config/db.js';
@@ -22,6 +24,10 @@
 
   app.use(cors());
   app.use(express.json());
+  app.use(logger);
+
+
+
 
   //app.use('/candidate', candidateRoutes);
   app.use('/election_candidates', election_candidatesRoute)
@@ -32,15 +38,16 @@
   app.use('/vote', voteRoute);
 
 
- 
-  
+  app.use(errorHandler);
+
+
   app.get('/', (req, res) => {
-    res.send('Servidor corriendo ✅');
+  res.send('Servidor corriendo ✅');
   });
 
 
 
 
   app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
